@@ -1,0 +1,155 @@
+.container {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    grid-template-rows: auto 1fr;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+  }
+  
+  header {
+    position: fixed; 
+    top: 0; 
+    left: 250px;
+    right: 0; 
+    height: 60px; 
+    background-color: #17153B; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center;
+    padding: 0 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 999; 
+  }
+
+  .site-name {
+    font-size: 24px; 
+    color: white; 
+  }
+  
+  .user-info {
+    display: flex; 
+    align-items: center; 
+  }
+  
+  .username {
+    margin-right: 15px;
+    color: white; 
+  }
+  
+  .notification {
+    font-size: 20px; 
+    color: white; 
+  }
+  
+  aside {
+    position: fixed; 
+    top: 0;
+    left: 0; 
+    height: 100vh; 
+    width: 250px; 
+    background-color: #17153B;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+  }
+  
+  .nav-menu ul {
+    list-style-type: none; 
+    padding: 0; 
+    margin: 10px;
+    background: #1E2A5E;
+  }
+  
+  .nav-menu ul li {
+    padding: 15px 20px;
+    cursor: pointer; 
+    border: #55679C solid 1px;
+    margin-bottom: 2px;
+    font-size: 20px;
+    color: white;
+  }
+  
+  .nav-menu ul li:hover {
+    background-color: #55679C;
+  }
+  
+  .initial-address {
+    position: absolute; 
+    top: 100px; 
+    left: 300px;
+    font-size: 32px; 
+    color: #060606; 
+    margin: 0; 
+  }
+  
+  main {
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 20px;
+  }
+
+  .student-dashboard-nav-box {
+    position: absolute; 
+    top: 200px;
+    left: 330px;
+    right: 40px; 
+    padding: 50px; 
+    background-color: #f9f9f9; 
+    border: 1px solid #040322; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+    border-radius: 8px; 
+    text-align: center;
+    background: #55679cbb;
+  }
+  
+  .student-dashboard-nav-box h3 {
+    margin: 0 0 20px 0;
+    font-size: 30px; 
+    color: #040221;
+  }
+  
+  .student-dashboard-nav-box h5 {
+    margin: 0; 
+    font-size: 24px; 
+    color: #040221;
+  }
+  
+  .student-dashboard-nav-box a {
+    color: #022448; 
+    text-decoration: underline; 
+  }
+  
+  .student-dashboard-nav-box a:hover {
+    text-decoration: underline;
+  }
+  
+  .content-box {
+    flex: 1;
+    margin-right: 20px; 
+    padding: 20px;
+    background-color: #f4f4f4;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    width: 200px;
+    text-align: center;
+  }
+
+  .student-box {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 500px;
+    margin-left: 0px;
+  }
+  
+  .content-box:last-child {
+    margin-right: 10%;
+  }
+  
+  .content-box:first-child {
+    margin-left: 0; 
+  }
+  
+  .container-img{
+    background: url('');
+  }
