@@ -12,7 +12,7 @@ function App() {
     if (username === 'admin' && password === 'adminpass') {
       setRole('admin');
       setIsLoggedIn(true);
-    } else if (username === 'administrator' && password === 'administpass') {
+    } else if (username === 'adminis' && password === 'adpass') {
       setRole('administrator');
       setIsLoggedIn(true);
     } else if (username === 'student' && password === 'studentpass') {
