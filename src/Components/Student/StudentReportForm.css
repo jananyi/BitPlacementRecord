@@ -1,0 +1,88 @@
+/* Full-page layout container */
+.page-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Full viewport height */
+  }
+  
+  .top-header {
+    background-color: #2a5b83;
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .content-container {
+    display: flex;
+    flex-grow: 1; /* Make it take the remaining height */
+  }
+  
+  .sidebar {
+    background-color: #f0f0f0;
+    width: 20%;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .student-report-form {
+    flex-grow: 1;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 40px;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+  }
+  
+  .report-form {
+    background-color: #041f48;
+    padding: 20px;
+    border-radius: 10px;
+    font-size: medium;
+  }
+  
+  .form-section {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+  }
+  
+  .form-section label {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .form-section input,
+  .form-section select {
+    padding: 10px;
+    border: 1px solid #4262a5;
+    border-radius: 5px;
+    width: 1000px;
+  }
+  
+  .form-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    
+  }
+  
+  .form-buttons button {
+    background-color: #132639;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .form-buttons button:hover {
+    background-color: #1b2d3c;
+  }
+  
+  .form-container{
+    margin-top: 66px;
+    width: max-content;
+  }

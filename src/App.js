@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import LoginForm from './Components/LoginForm/LoginForm';
 import AdminHomePage from './Components/HomePage/AdminHome';
 import AdministratorHomePage from './Components/HomePage/AdministratorHome';
 import StudentHomePage from './Components/HomePage/StudentHome';
+import ReportPage from './Components/Student/ReportPage';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -24,17 +26,25 @@ function App() {
   };
 
   return (
-    <div>
-      {!isLoggedIn ? (
-        <LoginForm onLogin={handleLogin} />
-      ) : (
-        <>
-          {role === 'admin' && <AdminHomePage />}
-          {role === 'administrator' && <AdministratorHomePage />}
-          {role === 'student' && <StudentHomePage />}
-        </>
-      )}
-    </div>
+    <Router>
+      <Routes>
+        {/* Default route for login */}
+        <Route path="/" element={!isLoggedIn ? <LoginForm onLogin={handleLogin} /> : <Navigate to={`/${role}/home`} />} />
+
+        {/* Admin routes */}
+        <Route path="/admin/home" element={isLoggedIn && role === 'admin' ? <AdminHomePage /> : <Navigate to="/" />} />
+
+        {/* Administrator routes */}
+        <Route path="/administrator/home" element={isLoggedIn && role === 'administrator' ? <AdministratorHomePage /> : <Navigate to="/" />} />
+
+        {/* Student routes */}
+        <Route path="/student/home" element={isLoggedIn && role === 'student' ? <StudentHomePage /> : <Navigate to="/" />} />
+        <Route path="/student/report" element={isLoggedIn && role === 'student' ? <ReportPage /> : <Navigate to="/" />} />
+
+        {/* Redirect if no match */}
+        <Route path="*" element={<Navigate to="/" />} />
+      </Routes>
+    </Router>
   );
 }
 
