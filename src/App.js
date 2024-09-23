@@ -5,11 +5,14 @@ import AdminHomePage from './Components/HomePage/AdminHome';
 import AdministratorHomePage from './Components/HomePage/AdministratorHome';
 import StudentHomePage from './Components/HomePage/StudentHome';
 import ReportPage from './Components/Student/ReportPage';
+import Track from './Components/Student/Track';  // Track page for student
+import Approve from './Components/Admin/Approve';  // Approve page for admin
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [role, setRole] = useState('');
 
+  // Handle login logic
   const handleLogin = (username, password) => {
     if (username === 'admin' && password === 'adminpass') {
       setRole('admin');
@@ -29,17 +32,40 @@ function App() {
     <Router>
       <Routes>
         {/* Default route for login */}
-        <Route path="/" element={!isLoggedIn ? <LoginForm onLogin={handleLogin} /> : <Navigate to={`/${role}/home`} />} />
+        <Route
+          path="/"
+          element={!isLoggedIn ? <LoginForm onLogin={handleLogin} /> : <Navigate to={`/${role}/home`} />}
+        />
 
         {/* Admin routes */}
-        <Route path="/admin/home" element={isLoggedIn && role === 'admin' ? <AdminHomePage /> : <Navigate to="/" />} />
+        <Route
+          path="/admin/home"
+          element={isLoggedIn && role === 'admin' ? <AdminHomePage /> : <Navigate to="/" />}
+        />
+        <Route
+          path="/admin/approve"
+          element={isLoggedIn && role === 'admin' ? <Approve /> : <Navigate to="/" />}
+        />
 
         {/* Administrator routes */}
-        <Route path="/administrator/home" element={isLoggedIn && role === 'administrator' ? <AdministratorHomePage /> : <Navigate to="/" />} />
+        <Route
+          path="/administrator/home"
+          element={isLoggedIn && role === 'administrator' ? <AdministratorHomePage /> : <Navigate to="/" />}
+        />
 
         {/* Student routes */}
-        <Route path="/student/home" element={isLoggedIn && role === 'student' ? <StudentHomePage /> : <Navigate to="/" />} />
-        <Route path="/student/report" element={isLoggedIn && role === 'student' ? <ReportPage /> : <Navigate to="/" />} />
+        <Route
+          path="/student/home"
+          element={isLoggedIn && role === 'student' ? <StudentHomePage /> : <Navigate to="/" />}
+        />
+        <Route
+          path="/student/report"
+          element={isLoggedIn && role === 'student' ? <ReportPage /> : <Navigate to="/" />}
+        />
+        <Route
+          path="/student/track"
+          element={isLoggedIn && role === 'student' ? <Track /> : <Navigate to="/" />}
+        />
 
         {/* Redirect if no match */}
         <Route path="*" element={<Navigate to="/" />} />

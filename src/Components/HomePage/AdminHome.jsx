@@ -1,5 +1,6 @@
 import React,{ useState, useEffect} from 'react';
 import './HomePage.css';
+import { Link } from 'react-router-dom';
 
 const AdminPage = () => {
   const [data, setData] = useState({
@@ -39,7 +40,7 @@ const AdminPage = () => {
         <nav className="nav-menu">
           <ul>
             <li>Home</li>
-            <li>Approve</li>
+            <li><Link to="/admin/approve">Approve</Link></li>
             <li>View Data</li>
           </ul>
         </nav>

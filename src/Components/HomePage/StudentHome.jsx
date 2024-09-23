@@ -19,9 +19,9 @@ const HomePage = ({ username }) => {
       <aside>
         <nav className="nav-menu">
           <ul>
-            <li>Home</li>
+            <li><Link to="/homepage/studenthome">Home</Link></li>
             <li><Link to="/student/report">Report</Link></li>
-            <li>Track</li>
+            <li><Link to="/student/track">Track</Link></li>
           </ul>
         </nav>
       </aside>

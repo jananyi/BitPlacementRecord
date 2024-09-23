@@ -1,0 +1,33 @@
+.track-container {
+    padding: 20px;
+    margin-top: 2%;
+    margin-left: 250px;
+  }
+
+  .tracker-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+    margin-top: 50px;
+  }
+  
+  .tracker-table th, .tracker-table td {
+    border: 1px solid #ccc;
+    padding: 12px 15px;
+    text-align: center;
+  }
+  
+  .tracker-table th {
+    background-color: #003366;
+    color: white;
+  }
+  
+  .tracker-table td {
+    background-color: #f2f2f2;
+  }
+  
+  .tracker-table tr:nth-child(even) td {
+    background-color: #e6e6e6;
+  }
+  
