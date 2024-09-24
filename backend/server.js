@@ -5,7 +5,8 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 const helmet = require('helmet');
-
+const studentRoutes = require('./routes/studentRoutes');
+const authRoutes = require('./routes/auth');
 const app = express();
 require('dotenv').config();
 
@@ -20,6 +21,12 @@ app.use(cors());
 app.use(helmet());  // Security headers
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Serve static files from 'uploads'
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+// Use authRoutes
+app.use('/api/auth', authRoutes);
 
 // Multer setup with file limits and validation
 const sanitizeFileName = (filename) => filename.replace(/[^a-zA-Z0-9.]/g, '_');
@@ -45,10 +52,7 @@ const upload = multer({
   }
 });
 
-// Serve static files from 'uploads'
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-
-// Mongoose schema
+// Mongoose schema for student reports
 const studentReportSchema = new mongoose.Schema({
   regNo: { type: String, required: true },
   name: { type: String, required: true },
@@ -70,10 +74,26 @@ app.post('/api/student-report', upload.fields([
   { name: 'offerLetterProof', maxCount: 1 }
 ]), async (req, res) => {
   try {
-    if (!req.files) return res.status(400).json({ error: 'No files uploaded' });
+    // Log form data and files for debugging
+    console.log('Form Data:', req.body);
+    console.log('Uploaded Files:', req.files);
+
+    // Ensure all required fields are present
+    const { regNo, name, email, phone } = req.body;
+    if (!regNo || !name || !email || !phone) {
+      return res.status(400).json({ error: 'All fields are required: regNo, name, email, phone.' });
+    }
+
+    // Check if files were uploaded
+    if (!req.files) {
+      return res.status(400).json({ error: 'No files uploaded' });
+    }
 
     const reportData = {
-      ...req.body,
+      regNo,
+      name,
+      email,
+      phone,
       mailConfirmationProof: req.files?.mailConfirmationProof ? req.files.mailConfirmationProof[0].path : '',
       internshipOfferLetterProof: req.files?.internshipOfferLetterProof ? req.files.internshipOfferLetterProof[0].path : '',
       letterOfIntentProof: req.files?.letterOfIntentProof ? req.files.letterOfIntentProof[0].path : '',
@@ -101,3 +121,7 @@ mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopol
     app.listen(5000, () => console.log('Server is running on port 5000'));
   })
   .catch(err => console.error('Failed to connect to MongoDB:', err));
+
+// Use studentRoutes
+app.use('/api/student', studentRoutes);
+

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './HomePage.css'; // Assuming you're styling with a separate CSS file.
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, LineChart, Line } from 'recharts';
+import { Link } from 'react-router-dom';
 
 const initialDocumentData = [
   { year: '2022', submissions: 0 },
@@ -48,8 +49,8 @@ const AdministratorPage = () => {
       <aside>
         <nav className="nav-menu">
           <ul>
-            <li>Home</li>
-            <li>Retrieve</li>
+            <li><Link to="/homepage/administratorhome">Home</Link></li>
+            <li><Link to="/administrator/retrieve">Retrieve</Link></li>
           </ul>
         </nav>
       </aside>

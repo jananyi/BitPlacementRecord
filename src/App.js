@@ -8,6 +8,8 @@ import ReportPage from './Components/Student/ReportPage';
 import Track from './Components/Student/Track';  // Track page for student
 import Approve from './Components/Admin/Approve';  // Approve page for admin
 import ViewData from './Components/Admin/ViewData'; // Import ViewData page for admin
+import Retrieve from './Components/Administrator/Retrieve';
+
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -58,6 +60,12 @@ function App() {
           element={isLoggedIn && role === 'administrator' ? <AdministratorHomePage /> : <Navigate to="/" />}
         />
 
+        <Route 
+          path="/administrator/retrieve"
+          element={isLoggedIn && role === 'administrator' ? <Retrieve /> : <Navigate to="/" />}
+        />
+
+
         {/* Student routes */}
         <Route
           path="/student/home"
@@ -70,11 +78,6 @@ function App() {
         <Route
           path="/student/track"
           element={isLoggedIn && role === 'student' ? <Track /> : <Navigate to="/" />}
-        />
-
-        <Route 
-          path="/administrator/retrieve"
-          element={isLoggedIn && role === 'administrator' ? <Retrieve /> : <Navigate to="/" />}
         />
 
         {/* Redirect if no match */}
