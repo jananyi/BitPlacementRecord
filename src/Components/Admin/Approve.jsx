@@ -1,44 +1,28 @@
-import React, { useState, useEffect } from 'react';
-import './AdminApprove.css'; // The correct CSS file
+import React, { useState } from 'react';
+import './AdminApproval.css'; // Ensure this file has the table styles and button styles
+import { Link } from 'react-router-dom';
 
-const Approve = () => {
-  // State to store student reports fetched from the database
-  const [reports, setReports] = useState([]);
-
-  // Fetch reports from the backend
-  useEffect(() => {
-    const fetchReports = async () => {
-      try {
-        const response = await fetch('/api/reports'); // API endpoint to fetch reports
-        const data = await response.json();
-        setReports(data); // Assuming the API returns an array of reports
-      } catch (error) {
-        console.error('Error fetching reports:', error);
-      }
-    };
-
-    fetchReports();
-  }, []);
-
-  // Approve or Disapprove action
-  const handleApprove = async (reportId, status) => {
-    try {
-      // Send the status update to the backend
-      await fetch(`/api/reports/${reportId}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ status }), // Update status to 'approved' or 'disapproved'
-      });
-
-      // Update the local state to reflect the approval/disapproval
-      setReports(reports.map(report =>
-        report._id === reportId ? { ...report, status } : report
-      ));
-    } catch (error) {
-      console.error('Error updating report status:', error);
+const AdminApproval = () => {
+  // Sample data, you can replace this with fetched data later
+  const [data, setData] = useState([
+    {
+      rollNo: "7376222CT119",
+      studentName: "JANANY I",
+      companyName: "TVS Motor",
+      mailConfirmationProof: "Proof1.pdf",
+      internshipOfferProof: "Offer1.pdf",
+      letterOfIntentProof: "Intent1.pdf",
+      offerLetterProof: "OfferLetter1.pdf",
+      approved: false,
     }
+  ]);
+
+  // Function to handle approve and reject actions
+  const handleAction = (index, action) => {
+    let updatedData = [...data];
+    updatedData[index].approved = action === "approve";
+    setData(updatedData);
+    alert(`You have ${action === "approve" ? "approved" : "rejected"} the request for ${data[index].studentName}`);
   };
 
   return (
@@ -53,15 +37,15 @@ const Approve = () => {
       <aside>
         <nav className="nav-menu">
           <ul>
-            <li>Home</li>
-            <li>Approve</li>
-            <li>View Data</li>
+            <li><Link to="/homepage/adminhome">Home</Link></li>
+            <li><Link to="/admin/approve">Approve</Link></li>
+            <li><Link to="/admin/viewdata">ViewData</Link></li>
           </ul>
         </nav>
       </aside>
 
-      <main>
-        <table className="admin-table">
+      <div className="admin-approval-container">
+        <table className="approval-table">
           <thead>
             <tr>
               <th>Roll No</th>
@@ -75,74 +59,52 @@ const Approve = () => {
             </tr>
           </thead>
           <tbody>
-            {reports.length > 0 ? (
-              reports.map((report) => (
-                <tr key={report._id}>
-                  <td>{report.regNo}</td>
-                  <td>{report.name}</td>
-                  <td>{report.companyName}</td>
+            {data.length > 0 ? (
+              data.map((item, index) => (
+                <tr key={index}>
+                  <td>{item.rollNo}</td>
+                  <td>{item.studentName}</td>
+                  <td>{item.companyName}</td>
                   <td>
-                    {report.mailConfirmationProof ? (
-                      <a href={report.mailConfirmationProof} target="_blank" rel="noopener noreferrer">View</a>
-                    ) : (
-                      'No proof'
-                    )}
+                    <button onClick={() => alert(`Viewing ${item.mailConfirmationProof}`)}>👁️</button>
                   </td>
                   <td>
-                    {report.internshipOfferLetterProof ? (
-                      <a href={report.internshipOfferLetterProof} target="_blank" rel="noopener noreferrer">View</a>
-                    ) : (
-                      'No proof'
-                    )}
+                    <button onClick={() => alert(`Viewing ${item.internshipOfferProof}`)}>👁️</button>
                   </td>
                   <td>
-                    {report.letterOfIntentProof ? (
-                      <a href={report.letterOfIntentProof} target="_blank" rel="noopener noreferrer">View</a>
-                    ) : (
-                      'No proof'
-                    )}
+                    <button onClick={() => alert(`Viewing ${item.letterOfIntentProof}`)}>👁️</button>
                   </td>
                   <td>
-                    {report.offerLetterProof ? (
-                      <a href={report.offerLetterProof} target="_blank" rel="noopener noreferrer">View</a>
-                    ) : (
-                      'No proof'
-                    )}
+                    <button onClick={() => alert(`Viewing ${item.offerLetterProof}`)}>👁️</button>
                   </td>
-                  <td className="action-buttons">
-                    {report.status !== 'approved' ? (
+                  <td>
+                    <div className="action-buttons">
                       <button
-                        className="approve-button"
-                        onClick={() => handleApprove(report._id, 'approved')}
+                        className="approve-btn"
+                        onClick={() => handleAction(index, "approve")}
                       >
-                        ✅
+                        ✔️
                       </button>
-                    ) : (
-                      <span className="approved">Approved</span>
-                    )}
-                    {report.status !== 'disapproved' ? (
                       <button
-                        className="disapprove-button"
-                        onClick={() => handleApprove(report._id, 'disapproved')}
+                        className="reject-btn"
+                        onClick={() => handleAction(index, "reject")}
                       >
                         ❌
                       </button>
-                    ) : (
-                      <span className="disapproved">Disapproved</span>
-                    )}
+                    </div>
                   </td>
                 </tr>
               ))
             ) : (
               <tr>
-                <td colSpan="8">No reports available</td>
+                <td colSpan="8">No data available for approval.</td>
               </tr>
             )}
           </tbody>
         </table>
-      </main>
+      </div>
     </div>
   );
 };
 
-export default Approve;
+export default AdminApproval;

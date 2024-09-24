@@ -39,9 +39,9 @@ const AdminPage = () => {
       <aside>
         <nav className="nav-menu">
           <ul>
-            <li>Home</li>
+            <li><Link to="/homepage/adminhome">Home</Link></li>
             <li><Link to="/admin/approve">Approve</Link></li>
-            <li>View Data</li>
+            <li><Link to="/admin/viewdata">ViewData</Link></li>
           </ul>
         </nav>
       </aside>

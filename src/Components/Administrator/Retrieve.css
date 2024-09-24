@@ -1,0 +1,26 @@
+.retrieve-page {
+    padding: 20px;
+  }
+  
+  .filters {
+    margin-bottom: 20px;
+  }
+  
+  .filters select {
+    margin-right: 10px;
+  }
+  
+  .student-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .student-table th, .student-table td {
+    border: 1px solid #ccc;
+    padding: 8px;
+  }
+  
+  .student-table th {
+    background-color: #f4f4f4;
+  }
+  

@@ -1,0 +1,88 @@
+.viewdata-container {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  header {
+    background-color: #003366;
+    color: white;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .site-name {
+    font-size: 1.5rem;
+  }
+  
+  .user-info {
+    display: flex;
+    align-items: center;
+  }
+  
+  .username {
+    margin-right: 15px;
+  }
+  
+  .nav-menu ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .nav-menu ul li {
+    margin: 15px 0;
+  }
+  
+  .data-table-container {
+    margin-left: 250px;
+    padding: 20px;
+  }
+  
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+  }
+  
+  .data-table th, .data-table td {
+    border: 1px solid #ccc;
+    padding: 12px;
+    text-align: center;
+  }
+  
+  .data-table th {
+    background-color: #003366;
+    color: white;
+  }
+  
+  .data-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  .data-table-container .table-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 66px;
+  }
+  
+  .view-pdf, .view-excel {
+    background-color: #007bff;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .view-pdf:hover, .view-excel:hover {
+    background-color: #0056b3;
+  }
+  
+  select {
+    padding: 8px;
+    font-size: 1rem;
+  }
+  
