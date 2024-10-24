@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './HomePage.css';
 import { Link } from 'react-router-dom';
 
-const HomePage = ({ username }) => {
+const HomePage = ({ name }) => {
   // Initial values set to 0
   const [completed, setCompleted] = useState(0);
   const [onProgress, setOnProgress] = useState(0);
@@ -12,7 +12,7 @@ const HomePage = ({ username }) => {
       <header>
         <div className="site-name">BIT-PlacementRecord</div>
         <div className="user-info">
-          <span className="username">Student</span>
+          <span className="username">{name || 'Student'}</span>
           <span className="notification">🔔</span>
         </div>
       </header>
@@ -26,7 +26,7 @@ const HomePage = ({ username }) => {
         </nav>
       </aside>
       <main>
-        <h1 className="initial-address">Hello, {username}!</h1>
+        <h1 className="initial-address">Hello, {name || 'Student'}!</h1>
         <div className="student-dashboard-nav-box">
           <div>
             <h3>STUDENT DASHBOARD</h3>

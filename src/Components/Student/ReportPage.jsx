@@ -34,6 +34,41 @@ const StudentReportForm = () => {
     currentJob: '',
   });
 
+  // Reset the form
+  const resetForm = () => {
+    console.log("Resetting form...");
+    setFormData({
+      regNo: '',
+      name: '',
+      gender: '',
+      dob: '',
+      degree: '',
+      batch: '',
+      yearOfPassing: '',
+      phone: '',
+      email: '',
+      companyName: '',
+      category: '',
+      organization: '',
+      address: '',
+      city: '',
+      contact: '',
+      websiteLink: '',
+      mailConfirmation: '',
+      mailConfirmationProof: null,
+      internshipOfferLetter: '',
+      internshipOfferLetterProof: null,
+      internshipJoiningDate: '',
+      stipendAmount: '',
+      letterOfIntent: '',
+      letterOfIntentProof: null,
+      offerLetter: '',
+      offerLetterProof: null,
+      currentJob: ''
+    });
+  };
+
+
   const [errors, setErrors] = useState({}); // State to handle validation errors
 
   // Handle form field changes
@@ -103,6 +138,7 @@ const StudentReportForm = () => {
   };
   
   const handleCreateOfferReport = async () => {
+    console.log("Creating offer report...");
     const formDataToSubmit = new FormData();
   
     Object.keys(formData).forEach(key => {
@@ -117,35 +153,7 @@ const StudentReportForm = () => {
   
       if (response.ok) {
         alert('Offer report created successfully!');
-        setFormData({
-          regNo: '',
-          name: '',
-          gender: '',
-          dob: '',
-          degree: '',
-          batch: '',
-          yearOfPassing: '',
-          phone: '',
-          email: '',
-          companyName: '',
-          category: '',
-          organization: '',
-          address: '',
-          city: '',
-          contact: '',
-          websiteLink: '',
-          mailConfirmation: '',
-          mailConfirmationProof: null,
-          internshipOfferLetter: '',
-          internshipOfferLetterProof: null,
-          internshipJoiningDate: '',
-          stipendAmount: '',
-          letterOfIntent: '',
-          letterOfIntentProof: null,
-          offerLetter: '',
-          offerLetterProof: null,
-          currentJob: ''
-        });
+        resetForm();
       } else {
         const errorData = await response.json();
         alert(`Failed to create offer report: ${errorData.error || 'Unknown error'}`);
@@ -156,7 +164,7 @@ const StudentReportForm = () => {
     }
   };  
 
-  const isFormValid = Object.keys(errors).length === 0 && Object.values(formData).every((value) => value !== ''); // Check if the form is valid
+  const isFormValid = Object.keys(validateForm()).length === 0;
 
   return (
     <div className="report-container">
@@ -180,17 +188,17 @@ const StudentReportForm = () => {
         <div className="form-container">
           <div className="form-section">
             <label>REG NO: <span className="mandatory">*</span></label>
-            <input type="text" name="regNo" onChange={handleChange} />
+            <input type="text" name="regNo" value={formData.regNo} onChange={handleChange} />
             {errors.regNo && <p className="error">{errors.regNo}</p>}
           </div>
           <div className="form-section">
             <label>NAME: <span className="mandatory">*</span></label>
-            <input type="text" name="name" onChange={handleChange} />
+            <input type="text" name="name" value={formData.name} onChange={handleChange} />
             {errors.name && <p className="error">{errors.name}</p>}
           </div>
           <div className="form-section">
             <label>GENDER: <span className="mandatory">*</span></label>
-            <select name="gender" onChange={handleChange}>
+            <select name="gender" value={formData.gender} onChange={handleChange}>
               <option value="">Select Gender</option>
               <option value="Male">Male</option>
               <option value="Female">Female</option>
@@ -199,12 +207,12 @@ const StudentReportForm = () => {
           </div>
           <div className="form-section">
             <label>DOB: <span className="mandatory">*</span></label>
-            <input type="date" name="dob" onChange={handleChange} />
+            <input type="date" name="dob" value={formData.dob} onChange={handleChange} />
             {errors.dob && <p className="error">{errors.dob}</p>}
           </div>
           <div className="form-section">
             <label>DEGREE: <span className="mandatory">*</span></label>
-            <select name="degree" onChange={handleChange}>
+            <select name="degree" value={formData.degree} onChange={handleChange}>
               <option value="">Select Degree</option>
               <option value="BE/BTech">BE/BTech</option>
               <option value="MBA">MBA</option>
@@ -213,62 +221,62 @@ const StudentReportForm = () => {
           </div>
           <div className="form-section">
             <label>BATCH: <span className="mandatory">*</span></label>
-            <input type="text" name="batch" onChange={handleChange} />
+            <input type="text" name="batch" value={formData.batch} onChange={handleChange} />
             {errors.batch && <p className="error">{errors.batch}</p>}
           </div>
           <div className="form-section">
             <label>YEAR OF PASSING: <span className="mandatory">*</span></label>
-            <input type="text" name="yearOfPassing" onChange={handleChange} />
+            <input type="text" name="yearOfPassing" value={formData.yearOfPassing} onChange={handleChange} />
             {errors.yearOfPassing && <p className="error">{errors.yearOfPassing}</p>}
           </div>
           <div className="form-section">
             <label>PHONE NO: <span className="mandatory">*</span></label>
-            <input type="text" name="phone" onChange={handleChange} />
+            <input type="text" name="phone" value={formData.phone} onChange={handleChange} />
             {errors.phone && <p className="error">{errors.phone}</p>}
           </div>
           <div className="form-section">
             <label>EMAIL ID: <span className="mandatory">*</span></label>
-            <input type="email" name="email" onChange={handleChange} />
+            <input type="email" name="email" value={formData.email} onChange={handleChange} />
             {errors.email && <p className="error">{errors.email}</p>}
           </div>
           <div className="form-section">
             <label>COMPANY NAME: <span className="mandatory">*</span></label>
-            <input type="text" name="companyName" onChange={handleChange} />
+            <input type="text" name="companyName" value={formData.companyName} onChange={handleChange} />
             {errors.companyName && <p className="error">{errors.companyName}</p>}
           </div>
           <div className="form-section">
             <label>CATEGORY: <span className="mandatory">*</span></label>
-            <input type="text" name="category" onChange={handleChange} />
+            <input type="text" name="category" value={formData.category} onChange={handleChange} />
             {errors.category && <p className="error">{errors.category}</p>}
           </div>
           <div className="form-section">
             <label>ORGANIZATION: <span className="mandatory">*</span></label>
-            <input type="text" name="organization" onChange={handleChange} />
+            <input type="text" name="organization" value={formData.organization} onChange={handleChange} />
             {errors.organization && <p className="error">{errors.organization}</p>}
           </div>
           <div className="form-section">
             <label>ADDRESS: <span className="mandatory">*</span></label>
-            <input type="text" name="address" onChange={handleChange} />
+            <input type="text" name="address" value={formData.address} onChange={handleChange} />
             {errors.address && <p className="error">{errors.address}</p>}
           </div>
           <div className="form-section">
             <label>CITY: <span className="mandatory">*</span></label>
-            <input type="text" name="city" onChange={handleChange} />
+            <input type="text" name="city" value={formData.city} onChange={handleChange} />
             {errors.city && <p className="error">{errors.city}</p>}
           </div>
           <div className="form-section">
             <label>CONTACT: <span className="mandatory">*</span></label>
-            <input type="text" name="contact" onChange={handleChange} />
+            <input type="text" name="contact" value={formData.contact} onChange={handleChange} />
             {errors.contact && <p className="error">{errors.contact}</p>}
           </div>
           <div className="form-section">
             <label>WEBSITE LINK: <span className="mandatory">*</span></label>
-            <input type="text" name="websiteLink" onChange={handleChange} />
+            <input type="text" name="websiteLink" value={formData.websiteLink} onChange={handleChange} />
             {errors.websiteLink && <p className="error">{errors.websiteLink}</p>}
           </div>
           <div className="form-section">
             <label>MAIL CONFIRMATION RECEIVED: <span className="mandatory">*</span></label>
-            <select name="mailConfirmation" onChange={handleChange}>
+            <select name="mailConfirmation" value={formData.mailConfirmation} onChange={handleChange}>
               <option value="No">Yes/No</option>
               <option value="No">Yes</option>
               <option value="Yes">No</option>
@@ -281,7 +289,7 @@ const StudentReportForm = () => {
           </div>
           <div className="form-section">
             <label>INTERNSHIP OFFER LETTER RECEIVED: <span className="mandatory">*</span></label>
-            <select name="internshipOfferLetter" onChange={handleChange}>
+            <select name="internshipOfferLetter" value={formData.internshipOfferLetter} onChange={handleChange}>
               <option value="No">Yes/No</option>
               <option value="No">Yes</option>
               <option value="Yes">No</option>
@@ -290,7 +298,7 @@ const StudentReportForm = () => {
           </div>
           <div className="form-section">
             <label>INTERNSHIP OFFER LETTER PROOF: </label>
-            <input type="file" name="internshipOfferLetterProof" onChange={handleFileChange} />
+            <input type="file" name="internshipOfferLetterProof"  onChange={handleFileChange} />
           </div>
           <div className="form-section">
             <label>INTERNSHIP JOINING DATE: <span className="mandatory">*</span></label>
@@ -299,11 +307,11 @@ const StudentReportForm = () => {
           </div>
           <div className="form-section">
             <label>STIPEND AMOUNT: </label>
-            <input type="text" name="stipendAmount" onChange={handleChange} />
+            <input type="text" name="stipendAmount" value={formData.stipendAmount} onChange={handleChange} />
           </div>
           <div className="form-section">
             <label>LETTER OF INTENT RECEIVED: <span className="mandatory">*</span></label>
-            <select name="letterOfIntent" onChange={handleChange}>
+            <select name="letterOfIntent" value={formData.letterOfIntent} onChange={handleChange}>
               <option value="No">Yes/No</option>
               <option value="No">Yes</option>
               <option value="Yes">No</option>
@@ -312,11 +320,11 @@ const StudentReportForm = () => {
           </div>
           <div className="form-section">
             <label>LETTER OF INTENT PROOF: </label>
-            <input type="file" name="letterOfIntentProof" onChange={handleFileChange} />
+            <input type="file" name="letterOfIntentProof"  onChange={handleFileChange} />
           </div>
           <div className="form-section">
             <label>OFFER LETTER RECEIVED: <span className="mandatory">*</span></label>
-            <select name="offerLetter" onChange={handleChange}>
+            <select name="offerLetter" value={formData.offerLetter} onChange={handleChange}>
               <option value="No">Yes/No</option>
               <option value="No">Yes</option>
               <option value="Yes">No</option>
@@ -329,14 +337,14 @@ const StudentReportForm = () => {
           </div>
           <div className="form-section">
             <label>CURRENT JOB: <span className="mandatory">*</span></label>
-            <input type="text" name="currentJob" onChange={handleChange} />
+            <input type="text" name="currentJob" value={formData.currentJob} onChange={handleChange} />
             {errors.currentJob && <p className="error">{errors.currentJob}</p>}
           </div>
           </div>
         <div className="form-buttons">
           <button type="button">CANCEL</button>
           <button type="submit" disabled={!isFormValid}>UPDATE & SAVE</button>
-          <button type="button" onClick={handleCreateOfferReport} disabled={!isFormValid}>CREATE OFFER REPORT</button>
+          <button type="button" onClick={handleCreateOfferReport} disabled={!isFormValid} encType="multipart/form-data">CREATE OFFER REPORT</button>
         </div>
       </form>
     </div>

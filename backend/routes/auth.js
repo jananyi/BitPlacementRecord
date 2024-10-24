@@ -2,62 +2,92 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
 const User = require('../models/User');
+const Student = require('../models/Student');
+const Admin = require('../models/Admin');
+const Administrator = require('../models/Administrator');
 
 // Registration route
 router.post('/register', async (req, res) => {
-    const { username, password, role } = req.body;
+    console.log('Incoming request data:', req.body);  // Log incoming data
+
+    const { name, email, password, designation } = req.body;
 
     // Basic validation
-    if (!username || !password || !role) {
-        return res.status(400).json({ message: 'Please provide a username, password, and role' });
+    if (!name || !email || !password || !designation) {
+        return res.status(400).json({ message: 'Please provide a name, email, password, and designation' });
     }
 
     try {
-        // Check if the user already exists in the database
-        const existingUser = await User.findOne({ username });
+        // Check if the user already exists in the user collection
+        const existingUser = await User.findOne({ email });
         if (existingUser) {
-            return res.status(400).json({ message: 'Username already exists' });
+            return res.status(400).json({ message: 'Email already exists' });
         }
 
         // Hash the password before saving the user
-        const salt = await bcrypt.genSalt(10);  // Generate a salt for hashing
-        const hashedPassword = await bcrypt.hash(password, salt);  // Hash the password with the salt
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
 
-        // Create and save the user in the database
+        // Create the user object
         const newUser = new User({
-            username,
-            password: hashedPassword,  // Store the hashed password
-            role,  // Admin, Administrator, or Student
+            name,
+            email,
+            password: hashedPassword,
+            designation  // Admin, Administrator, or Student
         });
 
-        await newUser.save();  // Save the user to MongoDB
+        await newUser.save();  // Save the user to the 'User' collection
+
+        // Based on the role, save the user into the respective collection
+        if (designation === 'student') {
+            const newStudent = new Student({
+                name,
+                email,
+                password: hashedPassword,
+            });
+            await newStudent.save();
+        } else if (designation === 'admin') {
+            const newAdmin = new Admin({
+                name,
+                email,
+                password: hashedPassword,
+            });
+            await newAdmin.save();
+        } else if (designation === 'administrator') {
+            const newAdministrator = new Administrator({
+                name,
+                email,
+                password: hashedPassword,
+            });
+            await newAdministrator.save();
+        }
+
         res.status(201).json({ message: 'User registered successfully' });
     } catch (error) {
-        console.error('Error during registration:', error);
+        console.error('Error during registration:', error);  // Log the error
         res.status(500).json({ message: 'Server error during registration' });
     }
 });
 
-// Login route
-router.post('/login', async (req, res) => {
-    const { username, password } = req.body;
-    
-    // Find the user in the database
-    const user = await User.findOne({ username });
-    
-    if (!user) {
-        return res.status(400).json({ message: 'Invalid username or password' });
+const handleSignUp = async (name, email, password, designation) => {
+    try {
+      const response = await fetch('http://localhost:5000/api/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name, email, password, designation }),
+      });
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+  
+      const data = await response.json();
+      console.log('Signup successful:', data);
+    } catch (error) {
+      console.error('Error during signup:', error);
     }
-
-    // Check if the password matches
-    const isMatch = await bcrypt.compare(password, user.password);
-
-    if (!isMatch) {
-        return res.status(400).json({ message: 'Invalid username or password' });
-    }
-
-    // Send success response with user's role
-    res.json({ message: 'Login successful', role: user.role });
-});
-
+  };
+  
 module.exports = router;
