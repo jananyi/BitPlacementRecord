@@ -31,7 +31,7 @@ const HomePage = ({ name }) => {
           <div>
             <h3>STUDENT DASHBOARD</h3>
             <h5>
-              Login <a href="#">Student Dashboard</a> to view student profile
+                Login <Link to="/student/dashboard">Student Dashboard</Link> to view student profile
             </h5>
           </div>
         </div>

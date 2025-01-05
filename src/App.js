@@ -10,6 +10,7 @@ import Track from './Components/Student/Track';
 import Approve from './Components/Admin/Approve'; 
 import ViewData from './Components/Admin/ViewData'; 
 import Retrieve from './Components/Administrator/Retrieve';
+import Dashboard from './Components/Student/Dashboard';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -127,8 +128,13 @@ function App() {
         element={isLoggedIn && designation === 'student' ? <Track /> : <Navigate to="/login" />}
       />
 
+      <Route 
+      path="/student/dashboard" 
+      element={isLoggedIn && designation === 'student' ? <Dashboard /> : <Navigate to="/login" />}/>
+
       {/* Redirect if no match */}
       <Route path="*" element={<Navigate to="/login" />} />
+
     </Routes>
   );
 }

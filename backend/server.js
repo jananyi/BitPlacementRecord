@@ -91,7 +91,7 @@ app.post('/api/student-report', upload.fields([
     }
 
 // Start the server
-app.listen(5000, () => {
+app.listen(5001, () => {
   console.log('Server is running on http://localhost:5000');
 });
 
