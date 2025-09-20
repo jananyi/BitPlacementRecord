@@ -56,7 +56,7 @@ const upload = multer({
 const studentReportSchema = new mongoose.Schema({
   regNo: { type: String, required: true },
   name: { type: String, required: true },
-  email: { type: String, required: true, match: /.+\@.+\..+/ },
+  email: { type: String, required: true, match: /.+@.+\..+/ },
   phone: { type: String, required: true, minlength: 10, maxlength: 15 },
   mailConfirmationProof: String,
   internshipOfferLetterProof: String,
